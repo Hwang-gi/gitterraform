@@ -1,0 +1,31 @@
+# name: AWS Test CI Pipeline
+
+# on: 
+#   push: 
+#     branches: 
+#       - main
+
+# jobs:
+#   terraform: 
+#     runs-on: latest
+#     environment: development
+
+#     steps: 
+#       - name: Repository Check
+#         uses: actions/checkout@v3
+
+#       - name: Set up Terraform
+#         uses: hashicorp/setup-terraform@v2
+#         with:
+#           terraform_version: 1.5.0
+
+#       - name: Terraform Init
+#         run: terraform init -backend-config="address=https://app.terraform.io" -backend-config="organization=your-org-name" -backend-config="token=${{ secrets.TF_API_TOKEN }}"
+
+#       - name: Terraform Plan
+#         run: terraform plan 
+
+#       - name: Terraform apply 
+#         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+#         run: terraform apply -auto-approve tfplan
+#         # run: terraform apply -auto-approve tfplan
