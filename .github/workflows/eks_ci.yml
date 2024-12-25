@@ -21,15 +21,15 @@ jobs:
 
 
       - name: Change to AWS directory
-        run: cd AWS 
+        run: cd AWS && pwd
 
-      - name: Terraform Init
-        run: terraform init -backend-config="address=https://app.terraform.io" -backend-config="organization=your-org-name" -backend-config="token=${{ secrets.TF_API_TOKEN }}"
+      # - name: Terraform Init
+      #   run: terraform init -backend-config="address=https://app.terraform.io" -backend-config="organization=your-org-name" -backend-config="token=${{ secrets.TF_API_TOKEN }}"
 
-      - name: Terraform Plan
-        run: terraform plan 
+      # - name: Terraform Plan
+      #   run: terraform plan 
 
-      - name: Terraform apply 
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        run: terraform apply 
+      # - name: Terraform apply 
+      #   if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      #   run: terraform apply 
         # run: terraform apply -auto-approve tfplan
