@@ -19,6 +19,10 @@ jobs:
         with:
           terraform_version: 1.5.0
 
+
+      - name: Change to AWS directory
+        run: cd AWS 
+
       - name: Terraform Init
         run: terraform init -backend-config="address=https://app.terraform.io" -backend-config="organization=your-org-name" -backend-config="token=${{ secrets.TF_API_TOKEN }}"
 
