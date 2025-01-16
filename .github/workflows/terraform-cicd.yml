@@ -46,15 +46,12 @@ jobs:
     #   env:
     #     TFE_TOKEN: ${{ secrets.TF_API_TOKEN }}
 
-    - name: Terraform Plan (Destroy)
-      run: terraform plan -destroy -out=tfplan
+    - name: Terraform Destroy
+      run: |
+        cd gitterraform/
+        terraform init
+        terraform plan -destroy
+        terraform destroy
 
-    - name: Terraform Apply (Destroy)
-      if: ${{ github.event.inputs.confirm == 'yes' }}
-      run: terraform apply -auto-approve tfplan
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
     
 
