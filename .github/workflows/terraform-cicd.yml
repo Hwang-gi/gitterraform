@@ -37,21 +37,13 @@ jobs:
     - name: Terraform Init
       run: cd gitterraform/ && terraform init
 
-    # - name: Terraform Plan
-    #   run: cd gitterraform/ && terraform plan
+    - name: Terraform Plan
+      run: cd gitterraform/ && terraform plan
 
-    # - name: Terraform Apply
-    #   if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    #   run: cd gitterraform/ && terraform apply -auto-approve 
-    #   env:
-    #     TFE_TOKEN: ${{ secrets.TF_API_TOKEN }}
-
-    - name: Terraform Destroy
-      run: |
-        cd gitterraform/
-        terraform init
-        terraform plan -destroy
-        terraform destroy
-
+    - name: Terraform Apply
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      run: cd gitterraform/ && terraform apply -destroy -auto-approve 
+      env:
+        TFE_TOKEN: ${{ secrets.TF_API_TOKEN }}
     
 
