@@ -41,7 +41,3 @@ variable "ubuntu_ami" {
   default     = "ami-056a29f2eddc40520"
 }
 
-variable "cluster_name" {
-  description = "Cluster name"
-  type = string
-}
