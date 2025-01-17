@@ -1,0 +1,46 @@
+name: Terraform Destroy
+
+on:
+  workflow_dispatch:  # 수동 트리거로 실행 (GitHub UI에서 실행)
+  push:
+    branches:
+      - main  # main 브랜치에 푸시될 때 자동으로 실행
+
+jobs:
+  terraform-destroy:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 코드 체크아웃
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    # Terraform 설치
+    - name: Set up Terraform
+      uses: hashicorp/setup-terraform@v1
+
+    # AWS 자격 증명 구성 (GitHub Secrets에서 값 가져오기)
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        region: ${{ secrets.AWS_REGION }}
+
+    # Terraform 초기화
+    - name: Terraform Init
+      run: terraform init
+
+    # Terraform 플랜 (실행될 삭제 작업 확인)
+    - name: Terraform Plan (Destroy)
+      run: terraform plan -destroy -out=tfplan
+
+    # Terraform Destroy (삭제 작업 실행)
+    - name: Terraform Apply (Destroy)
+      run: terraform apply -auto-approve tfplan
+      env:
+        TFE_TOKEN: ${{ secrets.TF_API_TOKEN }}
+
+    # 삭제 후 상태 확인
+    - name: Terraform Destroy Completed
+      run: terraform state list
