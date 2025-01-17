@@ -9,7 +9,7 @@ module "AWS" {
 terraform {
   backend "s3" {
     bucket         = "hgc-tfstate-bucket" 
-    key            = "state/terraform.tfstate"
+    key            = "gitterraform/terraform.tfstate"
     region         = "ap-northeast-2"              
     dynamodb_table = "terraform-lock"         
     encrypt        = true                   
