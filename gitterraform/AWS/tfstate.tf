@@ -27,14 +27,3 @@ resource "aws_dynamodb_table" "terraform_state_lock" {
     Name = "terraform-lock"
   }
 }
-
-terraform {
-  backend "s3" {
-    bucket         = "hgc-tfstate-bucket" 
-    key            = "path/to/terraform.tfstate"
-    region         = "us-east-1"              
-    dynamodb_table = "terraform-lock"         
-    encrypt        = true                   
-    versioning     = true                  
-  }
-}
