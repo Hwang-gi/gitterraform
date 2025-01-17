@@ -1,9 +1,19 @@
+# Personal bucket
 resource "aws_s3_bucket" "bucket" {
   bucket = "hgc-s3-bucket"
 
   tags = {
     Name = "hgc-s3-bucket"
     Environment = "${var.vpc_prefix}"
+  }
+}
+
+# S3 bucket for backend
+resource "aws_s3_bucket" "tfstate" {
+  bucket = "tf101-jupiter-apne2-tfstate"
+
+  versioning {
+    enabled = true # Prevent from deleting tfstate file
   }
 }
 
