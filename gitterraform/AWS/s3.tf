@@ -8,20 +8,6 @@ resource "aws_s3_bucket" "bucket" {
   }
 }
 
-# S3 bucket for backend
-resource "aws_s3_bucket" "tfstate" {
-  bucket = "hgc-tfstate-bucket"
-
-  versioning {
-    enabled = true
-  }
-
-  tags = {
-    Name = "hgc-tfstate-bucket"
-    Environment = "${var.vpc_prefix}"
-  }
-}
-
 # Connecting to AWS Lambda Resource
 resource "aws_iam_policy" "s3_lambda_policy" {
   name = "s3-lambda-policy"
