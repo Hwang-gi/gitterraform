@@ -18,6 +18,26 @@ resource "terraform_data" "kubeconfig" {
   }
 }
 
+resource "helm_release" "argocd" {
+  name = "argo"
+
+  repository = "https://argoproj.github.io/argo-helm"
+  chart = "argo"
+  namespace = "argocd"
+
+  create_namespace = true
+
+  values = [
+    <<EOF
+    server:
+      extraArgs:
+        - --insecure
+      admin:
+         password: sd12!fg34
+    EOF
+  ]
+}
+
 resource "helm_release" "aws_load_balancer_controller" {
     name = "aws-load-balancer-controller"
 
