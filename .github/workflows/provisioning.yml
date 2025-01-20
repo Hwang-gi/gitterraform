@@ -40,9 +40,9 @@ jobs:
       run: |
         cd gitterraform/ && terraform plan
 
-    - name: Terraform Apply
-      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-      run: |
-        cd gitterraform/ && terraform apply -auto-approve
-      env:
-        TFE_TOKEN: ${{ secrets.TF_API_TOKEN }}
+    # - name: Terraform Apply
+    #   if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    #   run: |
+    #     cd gitterraform/ && terraform apply -auto-approve
+    #   env:
+    #     TFE_TOKEN: ${{ secrets.TF_API_TOKEN }}
