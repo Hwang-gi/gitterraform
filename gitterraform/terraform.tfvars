@@ -1,2 +1,2 @@
-AWS_ACCESS_KEY_ID = var.aws_access_key_id
-AWS_SECRET_ACCESS_KEY = var.aws_secret_access_key
+AWS_ACCESS_KEY_ID = var.AWS_ACCESS_KEY_ID
+AWS_SECRET_ACCESS_KEY = var.AWS_SECRET_ACCESS_KEY
