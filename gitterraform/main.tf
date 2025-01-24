@@ -19,4 +19,5 @@ module "AWS" {
   region = var.AWS_REGION
   vpc_prefix = "STG"
   vpc_cidr = "10.0.0.0/16"
+  zone_name = "gitchang.store"
 }
