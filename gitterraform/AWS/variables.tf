@@ -41,3 +41,7 @@ variable "ubuntu_ami" {
   default     = "ami-056a29f2eddc40520"
 }
 
+variable "zone_name {
+  description = "Route 53 Hosting Zone name"
+  type        = string
+}
