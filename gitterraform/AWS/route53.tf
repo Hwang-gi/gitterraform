@@ -12,7 +12,7 @@ resource "aws_route53_zone" "zone" {
 
 resource "aws_route53_record" "A_record" {
   zone_id = aws_route53_zone.main.zone_id
-  name    = "${var.vpc_prefix}.gitchang.store"
+  name    = "${lower(var.vpc_prefix)}.gitchang.store"
   type    = "A"
   ttl     = "30"
   records = aws_route53_zone.zone.name_servers
