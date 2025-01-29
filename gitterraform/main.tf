@@ -16,7 +16,7 @@ terraform {
 module "AWS" {
   source = "./AWS"
 
-  region = var.AWS_REGION
+  region = "ap-northeast-2"
   vpc_prefix = "STG"
   vpc_cidr = "10.0.0.0/16"
   zone_name = "gitchang.store"
