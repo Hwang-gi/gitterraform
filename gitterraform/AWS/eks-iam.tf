@@ -389,38 +389,32 @@ resource "aws_iam_role_policy_attachment" "cluster_ALB_Policy" {
   role       = aws_iam_role.aws_load_balancer_controller_role.name
 }
 
-resource "aws_iam_policy" "s3_csi_driver_policy" {
+resource "aws_iam_policy" "prometheus_policy" {
     policy = jsonencode({
     "Version": "2012-10-17",
     "Statement": [
-        {
-            "Sid": "MountpointFullBucketAccess",
-            "Effect": "Allow",
-            "Action": [
-                "s3:ListBucket"
-            ],
-            "Resource": [
-                "arn:aws:s3:::unique-s3-bucket"
-            ]
-        },
-        {
-            "Sid": "MountpointFullObjectAccess",
-            "Effect": "Allow",
-            "Action": [
-                "s3:GetObject",
-                "s3:PutObject",
-                "s3:AbortMultipartUpload",
-                "s3:DeleteObject"
-            ],
-            "Resource": [
-                "arn:aws:s3:::unique-s3-bucket/*"
-            ]
-        }
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "elasticfilesystem:DescribeFileSystems",
+        "elasticfilesystem:DescribeMountTargets",
+        "elasticfilesystem:DescribeAccessPoints",
+        "elasticfilesystem:CreateAccessPoint"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
     ]
     })
 }
 
-resource "aws_iam_role_policy_attachment" "s3_csi_driver_policy" {
-    policy_arn = aws_iam_policy.s3_csi_driver_policy.arn
-    role = aws_iam_role.s3_csi_driver_role.name
+resource "aws_iam_role_policy_attachment" "prometheus_policy" {
+    policy_arn = aws_iam_policy.prometheus_policy.arn
+    role = aws_iam_role.prometheus_role.name
 }
+
+resource "
