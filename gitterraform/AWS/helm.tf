@@ -99,7 +99,7 @@ resource "helm_release" "cluster_autoscaler" {
 }
 
 resource "helm_release" "prometheus" {
-  name = "cluster-autoscaler"
+  name = "prometheus"
 
   repository = "https://prometheus-community.github.io/helm-charts"
   chart = "prometheus"
@@ -111,6 +111,23 @@ resource "helm_release" "prometheus" {
 
   set {
     name = "controller.serviceAccount.name"
-    value = "cluster-autoscaler-sa"
+    value = "prometheus-sa"
+  }
+}
+
+resource "helm_release" "grafana" {
+  name = "grafana"
+
+  repository = "https://grafana.github.io/helm-charts"
+  chart = "grafana"
+  namespace = "monitoring"
+
+  create_namespace = true
+
+
+
+  set {
+    name = "controller.serviceAccount.name"
+    value = "grafana-sa"
   }
 }
