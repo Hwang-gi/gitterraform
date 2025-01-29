@@ -85,25 +85,29 @@ resource "helm_release" "aws_load_balancer_controller" {
     ]
 }
 
-# resource "helm_release" "s3_csi_driver" {
-#   name = "s3-csi-driver"
-
-#   repository = "https://awslabs.github.io/mountpoint-s3-csi-driver"
-#   chart = "s3-csi-driver"
-#   namespace = "kube-system"
-
-#   set {
-#     name = "controller.serviceAccount.name"
-#     value = "efs-csi-driver-sa"
-#   }
-# }
-
 resource "helm_release" "cluster_autoscaler" {
   name = "cluster-autoscaler"
 
   repository = "https://kubernetes.github.io/autoscaler"
   chart = "cluster-autoscaler"
   namespace = "kube-system"
+
+  set {
+    name = "controller.serviceAccount.name"
+    value = "cluster-autoscaler-sa"
+  }
+}
+
+resource "helm_release" "prometheus" {
+  name = "cluster-autoscaler"
+
+  repository = "https://prometheus-community.github.io/helm-charts"
+  chart = "prometheus"
+  namespace = "monitoring"
+
+  create_namespace = true
+
+
 
   set {
     name = "controller.serviceAccount.name"
