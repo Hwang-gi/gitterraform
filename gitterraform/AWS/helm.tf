@@ -18,26 +18,6 @@ resource "terraform_data" "kubeconfig" {
   }
 }
 
-resource "helm_release" "argocd" {
-  name = "argo"
-
-  repository = "https://argoproj.github.io/argo-helm"
-  chart = "argo"
-  namespace = "argocd"
-
-  create_namespace = true
-
-  values = [
-    <<EOF
-    server:
-      extraArgs:
-        - --insecure
-      admin:
-         password: sd12!fg34
-    EOF
-  ]
-}
-
 resource "helm_release" "aws_load_balancer_controller" {
     name = "aws-load-balancer-controller"
 
@@ -96,6 +76,11 @@ resource "helm_release" "cluster_autoscaler" {
     name = "controller.serviceAccount.name"
     value = "cluster-autoscaler-sa"
   }
+
+  set {
+    name  = "controller.serviceAccount.annotations.eks.amazonaws.com/role-arn"
+    value = aws_iam_role.cluster_autoscaler_role.arn
+  }
 }
 
 resource "helm_release" "prometheus" {
@@ -113,6 +98,11 @@ resource "helm_release" "prometheus" {
     name = "controller.serviceAccount.name"
     value = "prometheus-sa"
   }
+
+  set {
+    name  = "controller.serviceAccount.annotations.eks.amazonaws.com/role-arn"
+    value = aws_iam_role.prometheus_role.arn
+  }
 }
 
 resource "helm_release" "grafana" {
@@ -129,5 +119,10 @@ resource "helm_release" "grafana" {
   set {
     name = "controller.serviceAccount.name"
     value = "grafana-sa"
+  }
+
+  set {
+    name  = "controller.serviceAccount.annotations.eks.amazonaws.com/role-arn"
+    value = aws_iam_role.grafana_role.arn
   }
 }
