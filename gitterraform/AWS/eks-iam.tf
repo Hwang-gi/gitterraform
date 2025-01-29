@@ -417,4 +417,30 @@ resource "aws_iam_role_policy_attachment" "prometheus_policy" {
     role = aws_iam_role.prometheus_role.name
 }
 
-resource "
+resource "aws_iam_policy" "grafana_policy" {
+    policy = jsonencode({
+    "Version": "2012-10-17",
+    "Statement": [
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "cloudwatch:ListMetrics",
+                "cloudwatch:GetMetricData",
+                "cloudwatch:GetMetricStatistics"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+
+    ]
+    })
+}
+
+resource "aws_iam_role_policy_attachment" "grafana_policy" {
+    policy_arn = aws_iam_policy.grafana_policy.arn
+    role = aws_iam_role.grafana_role.name
+}
