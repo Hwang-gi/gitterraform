@@ -399,19 +399,14 @@ resource "aws_iam_policy" "prometheus_policy" {
     "Version": "2012-10-17",
     "Statement": [
     {
-      "Version": "2012-10-17",
-      "Statement": [
-        {
-          "Effect": "Allow",
-          "Action": [
-            "elasticfilesystem:DescribeFileSystems",
-            "elasticfilesystem:DescribeMountTargets",
-            "elasticfilesystem:DescribeAccessPoints",
-            "elasticfilesystem:CreateAccessPoint"
-          ],
-          "Resource": "*"
-        }
-      ]
+        "Effect": "Allow",
+        "Action": [
+          "elasticfilesystem:DescribeFileSystems",
+          "elasticfilesystem:DescribeMountTargets",
+          "elasticfilesystem:DescribeAccessPoints",
+          "elasticfilesystem:CreateAccessPoint"
+        ],
+        "Resource": "*"
     }
     ]
     })
