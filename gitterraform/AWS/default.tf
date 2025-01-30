@@ -7,7 +7,7 @@ resource "aws_vpc" "mainvpc" {
 }
 
 resource "aws_default_network_acl" "default" {
-  default_network_acl_id = aws_vpc.mainvpc.default_network_acl_id
+  default_network_acl_id = aws_vpc.mainvpc.default_network_acl.id
 
   ingress {
     protocol   = -1
