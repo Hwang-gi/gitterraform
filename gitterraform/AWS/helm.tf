@@ -18,6 +18,16 @@ resource "terraform_data" "kubeconfig" {
   }
 }
 
+resource "helm_release" "argocd" {
+  repository = "https://argoproj.github.io/argo-helm"
+  chart      = "argo"
+  version    = "5.24.1"
+
+  name      = "argo"
+  namespace = "argocd"
+  create_namespace = true
+}
+
 resource "helm_release" "aws_load_balancer_controller" {
     name = "aws-load-balancer-controller"
 
@@ -86,9 +96,9 @@ resource "helm_release" "cluster_autoscaler" {
 resource "helm_release" "prometheus" {
   name = "prometheus"
 
-  repository = "https://prometheus-community.github.io/helm-charts"
-  chart = "prometheus"
-  namespace = "monitoring"
+  repository       = "https://prometheus-community.github.io/helm-charts"
+  chart            = "prometheus"
+  namespace        = "monitoring"
 
   create_namespace = true
 
