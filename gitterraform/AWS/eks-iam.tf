@@ -398,21 +398,21 @@ resource "aws_iam_policy" "prometheus_policy" {
     policy = jsonencode({
     "Version": "2012-10-17",
     "Statement": [
-{
-  "Version": "2012-10-17",
-  "Statement": [
     {
-      "Effect": "Allow",
-      "Action": [
-        "elasticfilesystem:DescribeFileSystems",
-        "elasticfilesystem:DescribeMountTargets",
-        "elasticfilesystem:DescribeAccessPoints",
-        "elasticfilesystem:CreateAccessPoint"
-      ],
-      "Resource": "*"
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "elasticfilesystem:DescribeFileSystems",
+            "elasticfilesystem:DescribeMountTargets",
+            "elasticfilesystem:DescribeAccessPoints",
+            "elasticfilesystem:CreateAccessPoint"
+          ],
+          "Resource": "*"
+        }
+      ]
     }
-  ]
-}
     ]
     })
 }
@@ -423,26 +423,20 @@ resource "aws_iam_role_policy_attachment" "prometheus_policy" {
 }
 
 resource "aws_iam_policy" "grafana_policy" {
-    policy = jsonencode({
-    "Version": "2012-10-17",
-    "Statement": [
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-                "cloudwatch:ListMetrics",
-                "cloudwatch:GetMetricData",
-                "cloudwatch:GetMetricStatistics"
-            ],
-            "Resource": "*"
-        }
+  policy = jsonencode({
+    "Version" = "2012-10-17"
+    "Statement" = [
+      {
+        "Effect"   = "Allow"
+        "Action"   = [
+          "cloudwatch:ListMetrics",
+          "cloudwatch:GetMetricData",
+          "cloudwatch:GetMetricStatistics"
+        ]
+        "Resource" = "*"
+      }
     ]
-}
-
-    ]
-    })
+  })
 }
 
 resource "aws_iam_role_policy_attachment" "grafana_policy" {
