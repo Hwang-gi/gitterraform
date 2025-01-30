@@ -45,14 +45,11 @@ resource "aws_iam_policy" "cluster_Autoscaler_Policy" {
   description = "IAM policy for EKS Cluster Autoscaler"
 
   policy = jsonencode({
-  "Version": "2012-10-17",
-  "Statement": [
-  {
-    "Version": "2012-10-17",
-    "Statement": [
+    "Version" = "2012-10-17"
+    "Statement" = [
       {
-        "Effect": "Allow",
-        "Action": [
+        "Effect"   = "Allow"
+        "Action"   = [
           "autoscaling:DescribeAutoScalingGroups",
           "autoscaling:DescribeAutoScalingInstances",
           "autoscaling:DescribeLaunchConfigurations",
@@ -62,21 +59,19 @@ resource "aws_iam_policy" "cluster_Autoscaler_Policy" {
           "ec2:DescribeLaunchTemplateVersions",
           "ec2:GetInstanceTypesFromInstanceRequirements",
           "eks:DescribeNodegroup"
-        ],
-        "Resource": ["*"]
+        ]
+        "Resource" = ["*"]
       },
       {
-        "Effect": "Allow",
-        "Action": [
+        "Effect"   = "Allow"
+        "Action"   = [
           "autoscaling:SetDesiredCapacity",
           "autoscaling:TerminateInstanceInAutoScalingGroup"
-        ],
-        "Resource": ["*"]
+        ]
+        "Resource" = ["*"]
       }
     ]
-  }
-  ]
-})
+  })
 }
 
 resource "aws_iam_role_policy_attachment" "cluster_CA_Policy" {
