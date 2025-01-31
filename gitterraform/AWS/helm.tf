@@ -82,7 +82,7 @@ resource "helm_release" "aws_load_balancer_controller" {
   
   set {
     name  = "clusterName"
-    value = local.cluster_name
+    value = data.eks_cluster.cluster.name
   }
   set {
     name  = "serviceAccount.create"
