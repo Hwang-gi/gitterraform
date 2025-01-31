@@ -1,5 +1,5 @@
 resource "aws_iam_role" "aws_load_balancer_controller_role" {
-  name = "aws-load-balancer-controller-sa"
+  name = "aws-load-balancer-controller-sa-role"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -16,7 +16,7 @@ resource "aws_iam_role" "aws_load_balancer_controller_role" {
 }
 
 resource "aws_iam_role" "efs_csi_driver_role" {
-  name = "efs-csi-driver-sa"
+  name = "efs-csi-driver-sa-role"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -33,7 +33,7 @@ resource "aws_iam_role" "efs_csi_driver_role" {
 }
 
 resource "aws_iam_role" "cluster_autoscaler_role" {
-  name = "cluster-autoscaler-sa"
+  name = "cluster-autoscaler-sa-role"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -50,7 +50,7 @@ resource "aws_iam_role" "cluster_autoscaler_role" {
 }
 
 resource "aws_iam_role" "prometheus_role" {
-  name = "prometheus-sa"
+  name = "prometheus-sa-role"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -67,7 +67,7 @@ resource "aws_iam_role" "prometheus_role" {
 }
 
 resource "aws_iam_role" "grafana_role" {
-  name = "grafana-sa"
+  name = "grafana-sa-role"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
