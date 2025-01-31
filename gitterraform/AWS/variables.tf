@@ -69,3 +69,15 @@ variable "alb_chart" {
     version    = "1.5.5"
   }
 }
+
+variable "ca_chart" {
+  type        = map(string)
+  description = "Cluster Autoscaler chart"
+  default = {
+    name       = "cluster-autoscalerr"
+    namespace  = "kube-system"
+    repository = "https://aws.github.io/eks-charts"
+    chart      = "aws-load-balancer-controller"
+    version    = "1.5.5"
+  }
+}
