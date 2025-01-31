@@ -45,3 +45,15 @@ variable "zone_name" {
   description = "Route 53 Hosting Zone name"
   type        = string
 }
+
+variable "argocd_chart" {
+  type        = map(string)
+  description = "ArgoCD chart"
+  default = {
+    name       = "argocd"
+    namespace  = "argocd"
+    repository = "https://argoproj.github.io/argo-helm"
+    chart      = "argo-cd"
+    version    = "5.46.6"
+  }  
+} 
