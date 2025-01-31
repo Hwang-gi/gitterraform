@@ -15,18 +15,19 @@ provider "kubernetes" {
 }
 
 provider "helm" {
+  alias = "cluster"
   kubernetes {
-    host                   = aws_eks_cluster.eks_cluster.endpoint
-    cluster_ca_certificate = base64decode(aws_eks_cluster.eks_cluster.certificate_authority[0].data)
+    host                   = data.aws_eks_cluster.cluster.endpoint
+    cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority[0].data)
     token                  = data.aws_eks_cluster_auth.eks_cluster.token
   }
 }
 
 resource "terraform_data" "kubeconfig" {
-  depends_on = [ aws_eks_cluster.eks_cluster ]
+  depends_on = [ data.aws_eks_cluster.cluster ]
 
   provisioner "local-exec" {
-    command = "aws eks --region ${var.region} update-kubeconfig --name ${aws_eks_cluster.eks_cluster.name}"
+    command = "aws eks --region ${var.region} update-kubeconfig --name ${data.aws_eks_cluster.cluster.name}"
   }
 }
 
@@ -49,7 +50,7 @@ resource "helm_release" "aws_load_balancer_controller" {
 
   set {
     name  = "clusterName"
-    value = aws_eks_cluster.eks_cluster.name
+    value = data.aws_eks_cluster.cluster.name
   }
 
   set {
@@ -82,9 +83,9 @@ resource "helm_release" "aws_load_balancer_controller" {
     value = "false"
   }
 
-    depends_on = [
-      aws_eks_cluster.eks_cluster
-    ]
+  depends_on = [
+      data.aws_eks_cluster.cluster
+  ]
 }
 
 resource "helm_release" "cluster_autoscaler" {
@@ -103,6 +104,10 @@ resource "helm_release" "cluster_autoscaler" {
     name  = "controller.serviceAccount.annotations.eks.amazonaws.com/role-arn"
     value = aws_iam_role.cluster_autoscaler_role.arn
   }
+
+  depends_on = [
+    data.aws_eks_cluster.cluster
+  ]
 }
 
 resource "helm_release" "prometheus" {
@@ -114,8 +119,6 @@ resource "helm_release" "prometheus" {
 
   create_namespace = true
 
-
-
   set {
     name = "controller.serviceAccount.name"
     value = "prometheus-sa"
@@ -125,6 +128,10 @@ resource "helm_release" "prometheus" {
     name  = "controller.serviceAccount.annotations.eks.amazonaws.com/role-arn"
     value = aws_iam_role.prometheus_role.arn
   }
+
+  depends_on = [
+    data.aws_eks_cluster.cluster
+  ]
 }
 
 resource "helm_release" "grafana" {
@@ -136,8 +143,6 @@ resource "helm_release" "grafana" {
 
   create_namespace = true
 
-
-
   set {
     name = "controller.serviceAccount.name"
     value = "grafana-sa"
@@ -147,4 +152,8 @@ resource "helm_release" "grafana" {
     name  = "controller.serviceAccount.annotations.eks.amazonaws.com/role-arn"
     value = aws_iam_role.grafana_role.arn
   }
+
+  depends_on = [
+    data.aws_eks_cluster.cluster
+  ]
 }
