@@ -74,50 +74,33 @@ resource "helm_release" "argocd" {
 }
 
 resource "helm_release" "aws_load_balancer_controller" {
-    name = "aws-load-balancer-controller"
-
-    repository = "https://aws.github.io/eks-charts"
-    chart      = "aws-load-balancer-controller"
-    namespace = "kube-system"
-
+  namespace  = var.alb_chart.namespace
+  repository = var.alb_chart.repository
+  name    = var.alb_chart.name
+  chart   = var.alb_chart.chart
+  version = var.alb_chart.version
+  
   set {
     name  = "clusterName"
-    value = data.aws_eks_cluster.cluster.name
+    value = local.cluster_name
   }
-
-  set {
-    name  = "awsRegion"
-    value = var.region
-  }
-
-  set {
-    name  = "rbac.create"
-    value = "true"
-  }
-
   set {
     name  = "serviceAccount.create"
-    value = "true"
-  }
-
-  set {
-    name  = "serviceAccount.name"
-    value = aws_iam_role.aws_load_balancer_controller_role.name
-  }
-
-  set {
-    name  = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
-    value = aws_iam_role.aws_load_balancer_controller_role.arn
-  }
-
-  set {
-    name  = "enableServiceMutatorWebhook"
     value = "false"
   }
-
-  depends_on = [
-      data.aws_eks_cluster.cluster
-  ]
+  set {
+    name  = "serviceAccount.name"
+    value = kubernetes_service_account.aws_load_balancer_controller.metadata.0.name
+  }
+  set {
+    name  = "region"
+    value = data.aws_region.current.name
+  }
+  set {
+    name  = "vpcId"
+    value = data.terraform_remote_state.vpc.outputs.ps_vpc.vpc_id
+  }
+  depends_on = [kubernetes_service_account.aws_load_balancer_controller]
 }
 
 resource "helm_release" "cluster_autoscaler" {
