@@ -32,13 +32,45 @@ resource "terraform_data" "kubeconfig" {
 }
 
 resource "helm_release" "argocd" {
-  repository = "https://argoproj.github.io/argo-helm"
-  chart      = "argo"
-  version    = "5.24.1"
-
-  name      = "argo"
-  namespace = "argocd"
+  namespace        = var.argo_chart.namespace
   create_namespace = true
+  repository       = var.argocd_chart.repository
+
+  name    = var.argocd_chart.name
+  chart   = var.argocd_chart.chart
+  version = var.argocd_chart.version
+
+  values = [
+    yamlencode({
+      server = {
+        extraArgs = [
+          "--insecure"
+        ]
+      }
+
+      configs = {
+        params = {
+          "server.enable.gzip" = true
+        }
+
+        secret = {
+          githubSecret = ""
+          ## Argo expects the password in the secret to be bcrypt hashed. You can create this hash with
+          argocdServerAdminPassword = "1234"
+        }
+
+        repositories = {
+          "k8s-manifest-repo" = {
+            url      = "https://github.com/Hwang-gi/k8s-manifest-repo.git"
+            project  = "default"
+            type     = "git"
+            # ArgoCD Personal Access Token
+            password = "sd12!fg34"
+          }
+        }
+      }
+    })
+  ]
 }
 
 resource "helm_release" "aws_load_balancer_controller" {
