@@ -1,20 +1,3 @@
-resource "aws_iam_role" "s3_csi_driver_role" {
-  name = "s3-csi-driver-sa"
-
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Effect = "Allow"
-        Action = "sts:AssumeRole"
-        Principal = {
-          Service = "eks.amazonaws.com"
-        }
-      }
-    ]
-  })
-}
-
 resource "aws_iam_role" "aws_load_balancer_controller_role" {
   name = "aws-load-balancer-controller-sa"
 
