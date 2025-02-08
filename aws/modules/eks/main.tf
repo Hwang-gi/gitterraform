@@ -1,5 +1,5 @@
 data "aws_ssm_parameter" "eks_ami_id" {
-  name = "/aws/service/eks/optimized-ami/1.31/amazon-linux-2/recommended"
+  name = "/aws/service/eks/optimized-ami/${var.kubernetes_version}/amazon-linux-2/recommended"
 }
 
 resource "aws_eks_cluster" "default" {
@@ -18,7 +18,7 @@ resource "aws_eks_cluster" "default" {
 
 resource "aws_launch_template" "node_launch_template" {
   name_prefix   = "node-launch-template"
-  image_id      = jsondecode(data.aws_ssm_parameter.eks_ami_id.value).image_id
+  image_id      = jsondecode(data.aws_ssm_parameter.eks_ami_id.value)["image_id"]
   instance_type = "t3.large"
   security_group_names = [var.node_sg_id]
 
