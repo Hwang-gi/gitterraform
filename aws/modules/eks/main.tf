@@ -39,8 +39,9 @@ resource "aws_launch_template" "node_launch_template" {
   block_device_mappings {
     device_name = "/dev/xvda"
     ebs {
-      volume_size = 20  # 20 GiB로 디스크 크기 설정
-      volume_type = "gp2"
+      volume_size = 20  
+      volume_type = "gp2"  
+      delete_on_termination = true 
     }
   }
 
