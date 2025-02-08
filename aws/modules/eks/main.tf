@@ -45,7 +45,7 @@ resource "aws_launch_template" "node_launch_template" {
     }
   }
 
-  security_group_ids = [var.node_sg_id] 
+  security_group_names = [var.node_sg_name] 
 }
 
 resource "aws_eks_node_group" "node_group" {
@@ -61,7 +61,7 @@ resource "aws_eks_node_group" "node_group" {
   # Launch Template 설정
   launch_template {
     id      = aws_launch_template.node_launch_template.id
-    version = "$Latest"  # 최신 버전 사용
+    version = "$Latest"  
   }
 
   scaling_config {
