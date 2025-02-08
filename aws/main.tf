@@ -63,6 +63,6 @@ module "eks" {
   eks_role_name = module.iam.eks_role_name
   node_role_arn = module.iam.node_role_arn
   node_role_name = module.iam.node_role_name
-  node_sg_name = module.security.sg_node_name
+  node_sg_id = module.security.sg_node_id
 
 }
