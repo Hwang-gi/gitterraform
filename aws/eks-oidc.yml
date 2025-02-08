@@ -1,0 +1,31 @@
+name: eks-oidc
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  Create-Oidc-And-Connect-to-EKS:
+    runs-on: ubuntu-latest
+
+    env:
+      cluster_name: ${{ secrets.CLUSTER_NAME}}
+      alb_sa: ${{ secrets.ALB_CONTROLLER_SA }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up AWS CLI
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Create EKS oidc
+        run: |
+          eksctl utils associate-iam-oidc-provider --cluster $cluster_name --approve
+
+      - name: Create EKS Service Account and Node Service Account
+        run: |
