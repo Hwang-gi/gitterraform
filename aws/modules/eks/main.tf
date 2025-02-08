@@ -45,7 +45,7 @@ resource "aws_launch_template" "node_launch_template" {
     }
   }
 
-  security_group_names = [var.node_sg_name] 
+  security_group_ids = [var.node_sg_id]
 }
 
 resource "aws_eks_node_group" "node_group" {
