@@ -2,6 +2,21 @@ data "aws_ssm_parameter" "eks_ami_id" {
   name = "/aws/service/eks/optimized-ami/${var.kubernetes_version}/amazon-linux-2/recommended"
 }
 
+locals {
+  eks_ami_data = jsondecode(data.aws_ssm_parameter.eks_ami_id.value)
+  ami_id       = local.eks_ami_data["image_id"]
+  node_groups = {
+    "node_group_1" = {
+      subnet_ids   = [var.node_subnets[0]]
+      node_group_name = "${var.eks_name}-node-group1"
+    },
+    "node_group_2" = {
+      subnet_ids   = [var.node_subnets[1]]
+      node_group_name = "${var.eks_name}-node-group2"
+    }
+  }
+}
+
 resource "aws_eks_cluster" "default" {
   name     = "${var.eks_name}"
   role_arn = var.eks_role_arn
@@ -18,23 +33,10 @@ resource "aws_eks_cluster" "default" {
 
 resource "aws_launch_template" "node_launch_template" {
   name_prefix          = "node-launch-template"
-  image_id             = "ami-005cddfeed40e0e49"
+  image_id             = local.ami_id
   instance_type        = "t3.large"
   security_group_names = [var.node_sg_id]
 
-}
-
-locals {
-  node_groups = {
-    "node_group_1" = {
-      subnet_ids   = [var.node_subnets[0]]
-      node_group_name = "${var.eks_name}-node-group1"
-    },
-    "node_group_2" = {
-      subnet_ids   = [var.node_subnets[1]]
-      node_group_name = "${var.eks_name}-node-group2"
-    }
-  }
 }
 
 resource "aws_eks_node_group" "node_group" {
@@ -47,6 +49,11 @@ resource "aws_eks_node_group" "node_group" {
   ami_type        = "CUSTOM"
   instance_types  = ["t3.large"]
   disk_size       = 20
+
+  launch_template {
+    id      = aws_launch_template.node_launch_template.id 
+    version = "$Latest" 
+  }
 
   scaling_config {
     desired_size = 2
