@@ -35,6 +35,15 @@ resource "aws_launch_template" "node_launch_template" {
   name_prefix          = "node-launch-template"
   image_id             = local.ami_id
   instance_type        = "t3.large"
+
+  block_device_mappings {
+    device_name = "/dev/xvda"
+    ebs {
+      volume_size = 20  # 20 GiB로 디스크 크기 설정
+      volume_type = "gp2"
+    }
+  }
+
   security_group_names = [var.node_sg_id]
 
 }
