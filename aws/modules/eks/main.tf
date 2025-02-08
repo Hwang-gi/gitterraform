@@ -45,7 +45,7 @@ resource "aws_launch_template" "node_launch_template" {
     }
   }
 
-  security_group_names = [var.node_sg_id]
+  security_group_names = [var.node_sg_id] 
 }
 
 resource "aws_eks_node_group" "node_group" {
@@ -54,13 +54,14 @@ resource "aws_eks_node_group" "node_group" {
   cluster_name    = var.eks_name
   node_group_name = each.value.node_group_name
   node_role_arn   = var.node_role_arn
-  subnet_ids      = each.value.subnet_ids  
+  subnet_ids      = each.value.subnet_ids 
 
   ami_type        = "CUSTOM"
 
+  # Launch Template 설정
   launch_template {
-    id      = aws_launch_template.node_launch_template.id 
-    version = "$Latest" 
+    id      = aws_launch_template.node_launch_template.id
+    version = "$Latest"  # 최신 버전 사용
   }
 
   scaling_config {
@@ -79,4 +80,3 @@ resource "aws_eks_node_group" "node_group" {
     var.node_role_name
   ]
 }
-
