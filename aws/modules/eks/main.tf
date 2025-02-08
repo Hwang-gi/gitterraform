@@ -27,11 +27,11 @@ resource "aws_launch_template" "node_launch_template" {
 locals {
   node_groups = {
     "node_group_1" = {
-      subnet_ids   = var.node_subnets[0]
+      subnet_ids   = [var.node_subnets[0]]
       node_group_name = "${var.eks_name}-node-group1"
     },
     "node_group_2" = {
-      subnet_ids   = var.node_subnets[1]
+      subnet_ids   = [var.node_subnets[1]]
       node_group_name = "${var.eks_name}-node-group2"
     }
   }
