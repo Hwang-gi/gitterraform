@@ -10,7 +10,7 @@ variable "node_subnets" {
   type = list(string)
 }
 
-variable "node_sg_id" {
+variable "node_sg_name" {
   type = string
 }
 
