@@ -58,7 +58,6 @@ resource "aws_eks_node_group" "node_group" {
   subnet_ids      = each.value.subnet_ids
 
   ami_type        = "CUSTOM"
-  instance_types  = ["t3.large"]
 
   # Launch Template 설정: 디스크 크기는 Launch Template 내에서만 지정
   launch_template {
