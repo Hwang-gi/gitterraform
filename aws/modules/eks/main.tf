@@ -24,16 +24,29 @@ resource "aws_launch_template" "node_launch_template" {
 
 }
 
-resource "aws_eks_node_group" "node_group" {
-  cluster_name    = var.eks_name
-  node_group_name = "${var.eks_name}-node-group1"
-  node_role_arn   = var.node_role_arn
-  subnet_ids      = var.node_subnets
-
-  tags = {
-    "k8s.io/cluster-autoscaler/enabled"     = "true"
-    "k8s.io/cluster-autoscaler/${var.eks_name}" = "owned"
+locals {
+  node_groups = {
+    "node_group_1" = {
+      subnet_ids   = var.node_subnets[0]
+      node_group_name = "${var.eks_name}-node-group1"
+    },
+    "node_group_2" = {
+      subnet_ids   = var.node_subnets[1]
+      node_group_name = "${var.eks_name}-node-group2"
+    }
   }
+}
+
+resource "aws_eks_node_group" "node_group" {
+  for_each = local.node_groups
+
+  cluster_name    = var.eks_name
+  node_group_name = each.value.node_group_name
+  node_role_arn   = var.node_role_arn
+  subnet_ids      = each.value.subnet_ids
+  ami_type        = "CUSTOM"
+  instance_types  = ["t3.large"]
+  disk_size       = 20
 
   scaling_config {
     desired_size = 2
@@ -41,12 +54,13 @@ resource "aws_eks_node_group" "node_group" {
     min_size     = 2
   }
 
-  ami_type       = "CUSTOM"
-  instance_types = ["t3.large"]
-  #capacity_type  = "ON_DEMAND"
-  disk_size = 20
+  tags = {
+    "k8s.io/cluster-autoscaler/enabled"     = "true"
+    "k8s.io/cluster-autoscaler/${var.eks_name}" = "owned"
+  }
 
   depends_on = [
+    aws_eks_cluster.default,
     var.node_role_name
   ]
 }
