@@ -18,7 +18,7 @@ resource "aws_eks_cluster" "default" {
 
 resource "aws_launch_template" "node_launch_template" {
   name_prefix          = "node-launch-template"
-  ami_id               = jsondecode(data.aws_ssm_parameter.eks_ami_id.value)["image_id"]
+  image_id             = "ami-005cddfeed40e0e49"
   instance_type        = "t3.large"
   security_group_names = [var.node_sg_id]
 
