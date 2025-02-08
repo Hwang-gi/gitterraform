@@ -56,13 +56,14 @@ resource "aws_eks_node_group" "node_group" {
   node_group_name = each.value.node_group_name
   node_role_arn   = var.node_role_arn
   subnet_ids      = each.value.subnet_ids
+
   ami_type        = "CUSTOM"
   instance_types  = ["t3.large"]
-  disk_size       = 20
 
+  # Launch Template 설정: 디스크 크기는 Launch Template 내에서만 지정
   launch_template {
     id      = aws_launch_template.node_launch_template.id 
-    version = "$Latest" 
+    version = "$Latest"  # 최신 버전 사용
   }
 
   scaling_config {
