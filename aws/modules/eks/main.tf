@@ -26,6 +26,12 @@ resource "aws_eks_cluster" "default" {
     security_group_ids = [var.eks_sg_id]
   }
 
+  identity {
+    oidc {
+      issuer = "https://oidc.eks.${var.region}.amazonaws.com/id/${aws_eks_cluster.default.id}"
+    }
+  }
+
   depends_on = [
     var.eks_role_name
   ]
