@@ -58,6 +58,7 @@ module "eks" {
   node_subnets = values(module.vpc.eks_node_subnet_ids)
   kubernetes_version = "1.31"
   eks_name = module.vpc.eks_name
+  eks_id = module.eks.eks_id
   eks_sg_id = module.security.sg_eks_id
   eks_role_arn = module.iam.eks_role_arn
   eks_role_name = module.iam.eks_role_name
