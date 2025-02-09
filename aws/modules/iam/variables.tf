@@ -6,3 +6,7 @@ variable "region" {
 variable "eks_name" {
   type = string
 }
+
+variable "eks_id" {
+  type = string
+}
