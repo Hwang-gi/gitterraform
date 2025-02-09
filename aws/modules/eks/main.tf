@@ -31,10 +31,28 @@ resource "aws_eks_cluster" "default" {
   ]
 }
 
+resource "aws_iam_instance_profile" "eks_node_profile" {
+  name = "eks-node-instance-profile"
+  role = var.node_role_name
+}
+
 resource "aws_launch_template" "node_launch_template" {
   name_prefix   = "node-launch-template"
   image_id      = local.ami_id
   instance_type = "t3.large"
+
+  user_data = base64encode(<<-EOF
+    #!/bin/bash
+    /etc/eks/bootstrap.sh ${var.eks_name}
+    yum update -y
+    curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.30.2/2024-07-12/bin/linux/amd64/kubectl
+    chmod +x ./kubectl
+    mv ./kubectl /usr/local/bin/
+    # aws eks update-kubeconfig --region ${var.region} --name ${var.eks_name}
+  EOF
+  )
+
+  iam_instance_profile = aws_iam_instance_profile.eks_node_profile.name
 
   block_device_mappings {
     device_name = "/dev/xvda"
