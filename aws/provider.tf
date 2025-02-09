@@ -5,14 +5,14 @@ terraform {
       source = "hashicorp/aws"
       version = ">= 5.86.0"
     }
-    # kubernetes = {
-    #   source = "hashicorp/kubernetes"
-    #   version = "~> 2.35"
-    # }
-    # kubectl = {
-    #   source = "gavinbunney/kubectl"
-    #   version = "~> 1.19"
-    # }
+    kubernetes = {
+       source = "hashicorp/kubernetes"
+       version = "~> 2.35"
+    }
+    kubectl = {
+       source = "gavinbunney/kubectl"
+       version = "~> 1.19"
+    }
   }
 }
 
@@ -22,12 +22,12 @@ provider "aws" {
   secret_key = var.AWS_SECRET_ACCESS_KEY
 }
 
-# provider "kubernetes" {
-#  host                   = "https://your-cluster-api-endpoint"
-#  cluster_ca_certificate = base64decode("")
-#  token                  = ""
-# }
+provider "kubernetes" {
+host                   = "https://your-cluster-api-endpoint"
+cluster_ca_certificate = base64decode("")
+token                  = ""
+ }
 
-# provider "kubectl" {
-#  config_path = "~/.kube/config"
-# }
+provider "kubectl" {
+  config_path = "~/.kube/config"
+}
