@@ -20,6 +20,8 @@ resource "aws_iam_role" "eks_role" {
   ]
 }
 POLICY
+
+  depends_on = [module.eks] 
 }
 
 resource "aws_iam_role" "autoscaler_role" {
@@ -44,6 +46,8 @@ resource "aws_iam_role" "autoscaler_role" {
   ]
 }
 POLICY
+
+  depends_on = [module.eks] 
 }
 
 resource "aws_iam_role" "efs_csi_driver_role" {
@@ -68,6 +72,8 @@ resource "aws_iam_role" "efs_csi_driver_role" {
   ]
 }
 POLICY
+
+  depends_on = [module.eks] 
 }
 
 resource "aws_iam_role" "aws_load_balancer_controller_role" {
@@ -92,6 +98,8 @@ resource "aws_iam_role" "aws_load_balancer_controller_role" {
   ]
 }
 POLICY
+
+  depends_on = [module.eks] 
 }
 
 resource "aws_iam_role_policy_attachment" "AmazonEKSClusterPolicy" {
