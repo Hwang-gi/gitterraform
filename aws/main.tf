@@ -51,8 +51,6 @@ module "iam" {
 
   eks_name = module.vpc.eks_name
   eks_id = module.eks.eks_id
-
-  depends_on = [module.eks.eks_id]
 }
 
 module "eks" {
@@ -69,6 +67,6 @@ module "eks" {
   node_sg_id = module.security.sg_node_id
 }
 
-module "kubernetes" {
-  source = "./modules/kubernetes"
-}
+#module "kubernetes" {
+#  source = "./modules/kubernetes"
+#}
