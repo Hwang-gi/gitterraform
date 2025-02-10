@@ -27,7 +27,7 @@ resource "aws_eks_cluster" "default" {
   }
 
   depends_on = [
-    var.eks_role_arn
+    module.iam.eks_role
   ]
 }
 
