@@ -76,7 +76,7 @@ resource "aws_eks_node_group" "node_group" {
 
   cluster_name    = var.eks_name
   node_group_name = each.value.node_group_name
-  node_role_arn   = var.node_role_arn
+  node_role_arn   = module.iam.node_role_arn
   subnet_ids      = each.value.subnet_ids 
 
   ami_type        = "CUSTOM"
