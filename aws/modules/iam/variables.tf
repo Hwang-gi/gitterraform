@@ -10,3 +10,7 @@ variable "eks_name" {
 variable "eks_id" {
   type = string
 }
+
+variable "oidc_url" {
+  type = string
+}
