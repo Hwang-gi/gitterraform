@@ -26,6 +26,6 @@ output "alb_role_name" {
   value = aws_iam_role.aws_load_balancer_controller_role.name
 }
 
-output "oidc_url" {
+output "eks_oidc_url" {
   value = aws_iam_openid_connect_provider.eks_oidc.url
 }
