@@ -19,7 +19,7 @@ locals {
 
 resource "aws_eks_cluster" "default" {
   name     = "${var.eks_name}"
-  role_arn = module.iam.eks_role_arn
+  role_arn = var.eks_role_arn
 
   vpc_config {
     subnet_ids = var.node_subnets
@@ -27,7 +27,7 @@ resource "aws_eks_cluster" "default" {
   }
 
   depends_on = [
-    var.eks_arn
+    var.eks_role_arn
   ]
 }
 
@@ -73,7 +73,7 @@ resource "aws_eks_node_group" "node_group" {
 
   cluster_name    = var.eks_name
   node_group_name = each.value.node_group_name
-  node_role_arn   = module.iam.node_role_arn
+  node_role_arn   = var.node_role_arn
   subnet_ids      = each.value.subnet_ids 
 
   ami_type        = "CUSTOM"
