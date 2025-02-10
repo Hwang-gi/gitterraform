@@ -42,6 +42,8 @@ resource "kubernetes_role_binding" "read_only_role_binding" {
     name     = kubernetes_role.read_only_role.metadata[0].name
     api_group = "rbac.authorization.k8s.io"
   }
+
+  depends_on = [kubernetes_service_account.eks_sa]
 }
 
 resource "kubernetes_cluster_role" "view_cluster_resources" {
@@ -72,6 +74,8 @@ resource "kubernetes_cluster_role_binding" "view_cluster_resources_binding_eks" 
     name     = kubernetes_cluster_role.view_cluster_resources.metadata[0].name
     api_group = "rbac.authorization.k8s.io"
   }
+
+   depends_on = [kubernetes_service_account.eks_sa]
 }
 
 resource "kubernetes_cluster_role_binding" "view_cluster_resources_binding_node" {
@@ -90,4 +94,6 @@ resource "kubernetes_cluster_role_binding" "view_cluster_resources_binding_node"
     name     = kubernetes_cluster_role.view_cluster_resources.metadata[0].name
     api_group = "rbac.authorization.k8s.io"
   }
+
+   depends_on = [kubernetes_service_account.node_sa]
 }
