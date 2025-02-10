@@ -65,5 +65,4 @@ module "eks" {
   node_role_arn = module.iam.node_role_arn
   node_role_name = module.iam.node_role_name
   node_sg_id = module.security.sg_node_id
-  eks_oidc_url = module.iam.eks_oidc_url
 }
