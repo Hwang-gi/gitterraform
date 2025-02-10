@@ -27,7 +27,7 @@ resource "aws_eks_cluster" "default" {
   }
 
   depends_on = [
-    module.iam
+    var.eks_arn
   ]
 }
 
@@ -52,9 +52,6 @@ resource "aws_launch_template" "node_launch_template" {
   EOF
   )
 
-#  iam_instance_profile {
-#    name = aws_iam_instance_profile.eks_node_profile.name
-#  }
 
   block_device_mappings {
     device_name = "/dev/xvda"
