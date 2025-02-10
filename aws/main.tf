@@ -51,6 +51,8 @@ module "iam" {
 
   eks_name = module.vpc.eks_name
   eks_id = module.eks.eks_id
+
+  depends_on = [module.eks.eks_id]
 }
 
 module "eks" {
