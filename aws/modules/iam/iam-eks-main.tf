@@ -8,7 +8,7 @@ resource "aws_iam_role" "eks_role" {
     {
       "Effect": "Allow",
       "Principal": {
-        "Federated": "arn:aws:iam::${data.aws_caller_identity.current.accunt_id}:oidc-provider/oidc.eks.${var.region}.amazonaws.com/id/${var.eks_id}"
+        "Federated": "arn:aws:iam::${data.aws_caller_identity.current.account_id}:oidc-provider/oidc.eks.${var.region}.amazonaws.com/id/${var.eks_id}"
       },
       "Action": "sts:AssumeRoleWithWebIdentity",
       "Condition": {
@@ -32,7 +32,7 @@ resource "aws_iam_role" "autoscaler_role" {
     {
       "Effect": "Allow",
       "Principal": {
-        "Federated": "arn:aws:iam::${data.aws_caller_identity.current.accunt_id}:oidc-provider/oidc.eks.${var.region}.amazonaws.com/id/${var.eks_id}"
+        "Federated": "arn:aws:iam::${data.aws_caller_identity.current.account_id}:oidc-provider/oidc.eks.${var.region}.amazonaws.com/id/${var.eks_id}"
       },
       "Action": "sts:AssumeRoleWithWebIdentity",
       "Condition": {
@@ -56,7 +56,7 @@ resource "aws_iam_role" "efs_csi_driver_role" {
     {
       "Effect": "Allow",
       "Principal": {
-        "Federated": "arn:aws:iam::${data.aws_caller_identity.current.accunt_id}:oidc-provider/oidc.eks.${var.region}.amazonaws.com/id/${var.eks_id}"
+        "Federated": "arn:aws:iam::${data.aws_caller_identity.current.account_id}:oidc-provider/oidc.eks.${var.region}.amazonaws.com/id/${var.eks_id}"
       },
       "Action": "sts:AssumeRoleWithWebIdentity",
       "Condition": {
@@ -80,7 +80,7 @@ resource "aws_iam_role" "aws_load_balancer_controller_role" {
     {
       "Effect": "Allow",
       "Principal": {
-        "Federated": "arn:aws:iam::${data.aws_caller_identity.current.accunt_id}:oidc-provider/oidc.eks.${var.region}.amazonaws.com/id/${var.eks_id}"
+        "Federated": "arn:aws:iam::${data.aws_caller_identity.current.account_id}:oidc-provider/oidc.eks.${var.region}.amazonaws.com/id/${var.eks_id}"
       },
       "Action": "sts:AssumeRoleWithWebIdentity",
       "Condition": {
