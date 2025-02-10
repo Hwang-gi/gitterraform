@@ -68,5 +68,5 @@ module "eks" {
 }
 
 module "kubernetes" {
-
+  source = "./modules/kubernetes"
 }
