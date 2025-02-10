@@ -19,7 +19,7 @@ locals {
 
 resource "aws_eks_cluster" "default" {
   name     = "${var.eks_name}"
-  role_arn = var.eks_role_arn
+  role_arn = module.iam.eks_role_arn
 
   vpc_config {
     subnet_ids = var.node_subnets
