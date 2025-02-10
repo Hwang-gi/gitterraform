@@ -66,3 +66,7 @@ module "eks" {
   node_role_name = module.iam.node_role_name
   node_sg_id = module.security.sg_node_id
 }
+
+module "kubernetes" {
+
+}
