@@ -56,14 +56,32 @@ resource "kubernetes_cluster_role" "view_cluster_resources" {
   }
 }
 
-resource "kubernetes_cluster_role_binding" "view_cluster_resources_binding" {
+resource "kubernetes_cluster_role_binding" "view_cluster_resources_binding_eks" {
   metadata {
-    name = "view-cluster-resources-binding"
+    name = "view-cluster-resources-binding-eks-sa"
   }
 
   subject {
     kind      = "ServiceAccount"
     name      = kubernetes_service_account.eks_sa.metadata[0].name
+    namespace = "default"
+  }
+
+  role_ref {
+    kind     = "ClusterRole"
+    name     = kubernetes_cluster_role.view_cluster_resources.metadata[0].name
+    api_group = "rbac.authorization.k8s.io"
+  }
+}
+
+resource "kubernetes_cluster_role_binding" "view_cluster_resources_binding_node" {
+  metadata {
+    name = "view-cluster-resources-binding-node-sa"
+  }
+
+  subject {
+    kind      = "ServiceAccount"
+    name      = kubernetes_service_account.node_sa.metadata[0].name
     namespace = "default"
   }
 
