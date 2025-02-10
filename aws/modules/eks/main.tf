@@ -27,7 +27,7 @@ resource "aws_eks_cluster" "default" {
   }
 
   depends_on = [
-    var.eks_role_name
+    var.eks_role_arn
   ]
 }
 
@@ -100,6 +100,6 @@ resource "aws_eks_node_group" "node_group" {
 
   depends_on = [
     aws_eks_cluster.default,
-    var.node_role_name
+    var.node_role_arn
   ]
 }
