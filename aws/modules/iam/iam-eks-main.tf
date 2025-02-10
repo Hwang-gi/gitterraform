@@ -8,14 +8,9 @@ resource "aws_iam_role" "eks_role" {
     {
       "Effect": "Allow",
       "Principal": {
-        "Federated": "arn:aws:iam::${data.aws_caller_identity.current.account_id}:oidc-provider/oidc.eks.${var.region}.amazonaws.com/id/${var.eks_id}"
+        "Service": "eks.amazonaws.com"
       },
-      "Action": "sts:AssumeRoleWithWebIdentity",
-      "Condition": {
-        "StringEquals": {
-          "oidc.eks.${var.region}.amazonaws.com/id/${var.eks_id}:sub": "system:serviceaccount:default:eks-sa"
-        }
-      }
+      "Action": "sts:AssumeRole"
     }
   ]
 }
@@ -34,14 +29,9 @@ resource "aws_iam_role" "autoscaler_role" {
     {
       "Effect": "Allow",
       "Principal": {
-        "Federated": "arn:aws:iam::${data.aws_caller_identity.current.account_id}:oidc-provider/oidc.eks.${var.region}.amazonaws.com/id/${var.eks_id}"
+        "Service": "eks.amazonaws.com"
       },
-      "Action": "sts:AssumeRoleWithWebIdentity",
-      "Condition": {
-        "StringEquals": {
-          "oidc.eks.${var.region}.amazonaws.com/id/${var.eks_id}:sub": "system:serviceaccount:kube-system:cluster-autoscaler-sa"
-        }
-      }
+      "Action": "sts:AssumeRole"
     }
   ]
 }
@@ -60,14 +50,9 @@ resource "aws_iam_role" "efs_csi_driver_role" {
     {
       "Effect": "Allow",
       "Principal": {
-        "Federated": "arn:aws:iam::${data.aws_caller_identity.current.account_id}:oidc-provider/oidc.eks.${var.region}.amazonaws.com/id/${var.eks_id}"
+        "Service": "eks.amazonaws.com"
       },
-      "Action": "sts:AssumeRoleWithWebIdentity",
-      "Condition": {
-        "StringEquals": {
-          "oidc.eks.${var.region}.amazonaws.com/id/${var.eks_id}:sub": "system:serviceaccount:kube-system:efs-csi-driver-sa"
-        }
-      }
+      "Action": "sts:AssumeRole"
     }
   ]
 }
@@ -86,14 +71,9 @@ resource "aws_iam_role" "aws_load_balancer_controller_role" {
     {
       "Effect": "Allow",
       "Principal": {
-        "Federated": "arn:aws:iam::${data.aws_caller_identity.current.account_id}:oidc-provider/oidc.eks.${var.region}.amazonaws.com/id/${var.eks_id}"
+        "Service": "eks.amazonaws.com"
       },
-      "Action": "sts:AssumeRoleWithWebIdentity",
-      "Condition": {
-        "StringEquals": {
-          "oidc.eks.${var.region}.amazonaws.com/id/${var.eks_id}:sub": "system:serviceaccount:kube-system:aws-load-balancer-controller-sa"
-        }
-      }
+      "Action": "sts:AssumeRole"
     }
   ]
 }
