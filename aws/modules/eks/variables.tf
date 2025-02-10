@@ -38,3 +38,7 @@ variable "eks_role_name" {
 variable "node_role_name" {
   type = string
 }
+
+variable "eks_oidc_url" {
+  type = string
+}
