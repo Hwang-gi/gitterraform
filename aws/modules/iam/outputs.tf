@@ -27,5 +27,5 @@ output "alb_role_name" {
 }
 
 output "oidc_url" {
-  value = aws_iam_openid_connect_provider.default.url
+  value = aws_iam_openid_connect_provider.eks_oidc.url
 }
