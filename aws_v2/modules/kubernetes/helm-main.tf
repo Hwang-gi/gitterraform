@@ -1,3 +1,19 @@
+data "aws_eks_cluster" "default" {
+  name = 
+}
+
+data "aws_eks_cluster_auth" "default" {
+  name = 
+}
+
+provider "helm" {
+  kubernetes {
+    host                   = aws_eks_cluster.example.endpoint
+    cluster_ca_certificate = base64decode(aws_eks_cluster.example.cluster_ca_certificate)
+    token                  = data.aws_eks_cluster_auth.example.token
+  }
+}
+
 resource "helm_release" "metrics_server_chart" {
   name       = var.metrics_server_chart.name
   namespace  = var.metrics_server_chart.namespace
