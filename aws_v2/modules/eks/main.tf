@@ -36,8 +36,7 @@ resource "aws_eks_cluster_auth" "default" {
   role_arn = var.eks_role_arn
 
   depends_on = [
-    aws_eks_cluster.default, 
-    var.eks_role_arn
+    aws_eks_cluster.default
   ]
 }
 
