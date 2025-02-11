@@ -66,10 +66,3 @@ module "eks" {
   node_role_name = module.iam.node_role_name
   node_sg_id = module.security.sg_node_id
 }
-
-module "kubernetes" {
-  source = "./modules/kubernetes"
-
-  eks_name = module.vpc.eks_name
-  eks_auth_name = module.eks.eks_auth_name
-}
