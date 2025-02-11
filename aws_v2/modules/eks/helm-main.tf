@@ -44,6 +44,13 @@ resource "helm_release" "alb_chart" {
   repository = var.alb_chart.repository
   chart      = var.alb_chart.chart
   version    = var.alb_chart.version
+
+  values = [
+    <<-EOT
+    clusterName: ${data.aws_eks_cluster.default.name}
+    EOT
+  ]
+  ]
 }
 
 resource "helm_release" "cluster_autoscaler_chart" {
