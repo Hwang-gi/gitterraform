@@ -26,11 +26,6 @@ provider "aws" {
   secret_key = var.AWS_SECRET_ACCESS_KEY
 }
 
-provider "kubernetes" {
-host                   = "https://your-cluster-api-endpoint"
-cluster_ca_certificate = base64decode("")
-token                  = ""
- }
 
 provider "kubectl" {
   config_path = "~/.kube/config"
