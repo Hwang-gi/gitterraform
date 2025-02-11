@@ -31,15 +31,6 @@ resource "aws_eks_cluster" "default" {
   ]
 }
 
-resource "aws_eks_cluster_auth" "default" {
-  name = "${var.eks_name}"
-  role_arn = var.eks_role_arn
-
-  depends_on = [
-    aws_eks_cluster.default
-  ]
-}
-
 resource "aws_iam_instance_profile" "eks_node_profile" {
   name = "eks-node-instance-profile"
   role = var.node_role_name
