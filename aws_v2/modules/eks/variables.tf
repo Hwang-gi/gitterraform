@@ -67,7 +67,7 @@ variable "argocd_chart" {
     namespace  = "argocd"
     repository = "https://argoproj.github.io/argo-helm"
     chart      = "argo"
-    version    = "2.14.2"
+    version    = "7.8.0"
   }
 }
 
