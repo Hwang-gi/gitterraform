@@ -8,7 +8,6 @@ resource "kubernetes_role" "frontend_backend_monitoring_pods_services" {
     verbs     = ["get", "list"]
     api_groups = [""]
     resources  = ["pods", "services"]
-    namespaces = ["frontend", "backend", "monitoring"]
   }
 }
 
@@ -22,7 +21,6 @@ resource "kubernetes_role" "frontend_backend_pods" {
     verbs     = ["create", "update", "delete"]
     api_groups = [""]
     resources  = ["pods"]
-    namespaces = ["frontend", "backend"]
   }
 }
 
@@ -36,7 +34,6 @@ resource "kubernetes_role" "frontend_backend_deployments" {
     verbs     = ["get", "list", "create", "update", "delete"]
     api_groups = ["apps"]
     resources  = ["deployments"]
-    namespaces = ["frontend", "backend"]
   }
 }
 
@@ -50,7 +47,6 @@ resource "kubernetes_role" "backend_persistent_volumes" {
     verbs     = ["get", "list", "create"]
     api_groups = ["storage.k8s.io"]
     resources  = ["persistentvolumes", "persistentvolumeclaims"]
-    namespaces = ["backend"]
   }
 }
 
@@ -84,7 +80,6 @@ resource "kubernetes_role_binding" "frontend_backend_pods_binding" {
   subjects {
     kind      = "User"
     name      = "git-user"
-    namespace = "default"
   }
 
   role_ref {
@@ -103,7 +98,6 @@ resource "kubernetes_role_binding" "frontend_backend_deployments_binding" {
   subjects {
     kind      = "User"
     name      = "git-user"
-    namespace = "default"
   }
 
   role_ref {
