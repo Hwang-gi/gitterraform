@@ -91,7 +91,7 @@ variable "cluster_autoscaler_chart" {
     namespace = "kube-system"
     repository = "https://kubernetes.github.io/autoscaler"
     chart = "cluster-autoscaler"
-    version = "1.32.0"
+    version = "latest-version"
   }
 }
 
@@ -103,7 +103,7 @@ variable "efs_csi_driver_chart" {
     namespace = "kube-system"
     repository = "https://kubernetes-sigs.github.io/aws-efs-csi-driver/"
     chart = "aws-efs-csi-driver"
-    version = "2.1.5"
+    version = "latest-version"
   }
 }
 
@@ -115,7 +115,7 @@ variable "prometheus_chart" {
     namespace = "monitoring"
     repository = "https://prometheus-community.github.io/helm-charts"
     chart = "prometheus"
-    version = "3.2.0"
+    version = "latest-version"
   }
 }
 
@@ -127,6 +127,6 @@ variable "grafana_chart" {
     namespace = "monitoring"
     repository = "https://grafana.github.io/helm-charts"
     chart = "grafana"
-    version = "11.6.0"
+    version = "latest-version"
   }
 }
