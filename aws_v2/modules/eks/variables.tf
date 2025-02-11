@@ -55,7 +55,7 @@ variable "metrics_server_chart" {
     namespace  = "kube-system"
     repository = "https://kubernetes-sigs.github.io/metrics-server/"
     chart      = "metrics-server"
-    version    = "0.7.2"
+    version    = "3.12.2"
   }
 }
 
@@ -67,7 +67,7 @@ variable "argocd_chart" {
     namespace  = "argocd"
     repository = "https://argoproj.github.io/argo-helm"
     chart      = "argo"
-    version    = "7.8.0"
+    version    = "5.29.1"
   }
 }
 
