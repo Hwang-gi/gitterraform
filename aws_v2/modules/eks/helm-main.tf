@@ -50,7 +50,6 @@ resource "helm_release" "alb_chart" {
     clusterName: ${data.aws_eks_cluster.default.name}
     EOT
   ]
-  ]
 }
 
 resource "helm_release" "cluster_autoscaler_chart" {
