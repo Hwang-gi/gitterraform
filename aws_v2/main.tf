@@ -71,4 +71,5 @@ module "kubernetes" {
   source = "./modules/kubernetes"
 
   eks_name = module.vpc.eks_name
+  eks_auth_name = module.eks.eks_auth_name
 }
