@@ -58,7 +58,7 @@ resource "kubernetes_role_binding" "frontend_backend_monitoring_pods_services_bi
     namespace = "default"
   }
 
-  subjects {
+  subject {
     kind      = "User"
     name      = "git-user"
     namespace = "default"
@@ -77,7 +77,7 @@ resource "kubernetes_role_binding" "frontend_backend_pods_binding" {
     namespace = "default"
   }
 
-  subjects {
+  subject {
     kind      = "User"
     name      = "git-user"
   }
@@ -95,7 +95,7 @@ resource "kubernetes_role_binding" "frontend_backend_deployments_binding" {
     namespace = "default"
   }
 
-  subjects {
+  subject {
     kind      = "User"
     name      = "git-user"
   }
@@ -113,7 +113,7 @@ resource "kubernetes_role_binding" "backend_persistent_volumes_binding" {
     namespace = "default"
   }
 
-  subjects {
+  subject {
     kind      = "User"
     name      = "git-user"
     namespace = "default"
