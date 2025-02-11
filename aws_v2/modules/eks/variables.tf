@@ -51,7 +51,7 @@ variable "metrics_server_chart" {
   type        = map(string)
   description = "Metrics Server chart"
   default = {
-    name       = "metrics server"
+    name       = "metrics-server"
     namespace  = "kube-system"
     repository = "https://kubernetes-sigs.github.io/metrics-server/"
     chart      = "metrics-server"
