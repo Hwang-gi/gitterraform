@@ -1,16 +1,16 @@
 data "aws_eks_cluster" "default" {
-  name = 
+  name = var.eks_name
 }
 
 data "aws_eks_cluster_auth" "default" {
-  name = 
+  name = var.eks_name
 }
 
 provider "helm" {
   kubernetes {
-    host                   = aws_eks_cluster.example.endpoint
-    cluster_ca_certificate = base64decode(aws_eks_cluster.example.cluster_ca_certificate)
-    token                  = data.aws_eks_cluster_auth.example.token
+    host                   = data.aws_eks_cluster.default.endpoint
+    cluster_ca_certificate = base64decode(data.aws_eks_cluster.default.cluster_ca_certificate)
+    token                  = data.aws_eks_cluster_auth.default.token
   }
 }
 
