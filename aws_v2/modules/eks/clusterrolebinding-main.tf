@@ -92,12 +92,6 @@ resource "kubernetes_cluster_role_binding" "grafana_clusterrolebinding" {
     namespace = "monitoring"
   }
 
-  subject {
-    kind      = "ServiceAccount"
-    name      = "grafana-sa"
-    namespace = "monitoring"
-  }
-
   role_ref {
     kind     = "ClusterRole"
     name     = "grafana-prometheus-clusterrole"
