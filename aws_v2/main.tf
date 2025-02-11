@@ -67,6 +67,6 @@ module "eks" {
   node_sg_id = module.security.sg_node_id
 }
 
-#module "kubernetes" {
-#  source = "./modules/kubernetes"
-#}
+module "kubernetes" {
+  source = "./modules/kubernetes"
+}
