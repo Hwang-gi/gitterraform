@@ -2,6 +2,10 @@ variable "eks_name" {
   type = string
 }
 
+variable "eks_auth_name" {
+  type = string
+}
+
 # Helm Chart 정의하는 Format
 # variable {
 #   type = map(string)
