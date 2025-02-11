@@ -79,7 +79,7 @@ variable "alb_chart" {
     namespace  = "kube-system"
     repository = "https://aws.github.io/eks-charts"
     chart      = "aws-load-balancer-controller"
-    version    = "2.11.0"
+    version    = "1.11.0"
   }
 }
 
@@ -91,7 +91,7 @@ variable "cluster_autoscaler_chart" {
     namespace = "kube-system"
     repository = "https://kubernetes.github.io/autoscaler"
     chart = "cluster-autoscaler"
-    version = "9.45.0"
+    version = "9.46.0"
   }
 }
 
