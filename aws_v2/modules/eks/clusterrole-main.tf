@@ -137,7 +137,6 @@ resource "kubernetes_cluster_role" "frontend_backend_monitoring_pods_services" {
     verbs     = ["get", "list"]
     api_groups = [""]
     resources  = ["pods", "services"]
-    namespaces = ["frontend", "backend", "monitoring"]
   }
 }
 
@@ -150,7 +149,6 @@ resource "kubernetes_cluster_role" "frontend_backend_pods" {
     verbs     = ["create", "update", "delete"]
     api_groups = [""]
     resources  = ["pods"]
-    namespaces = ["frontend", "backend"]
   }
 }
 
@@ -163,19 +161,17 @@ resource "kubernetes_cluster_role" "frontend_backend_deployments" {
     verbs     = ["get", "list", "create", "update", "delete"]
     api_groups = ["apps"]
     resources  = ["deployments"]
-    namespaces = ["frontend", "backend"]
   }
 }
 
 resource "kubernetes_cluster_role" "backend_persistent_volumes" {
   metadata {
     name = "backend-persistent-volumes"
-  }
+  } 
 
   rule {
     verbs     = ["get", "list", "create"]
     api_groups = ["storage.k8s.io"]
     resources  = ["persistentvolumes", "persistentvolumeclaims"]
-    namespaces = ["backend"]
   }
 }
