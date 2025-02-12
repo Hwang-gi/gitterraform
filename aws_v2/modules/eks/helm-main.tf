@@ -33,11 +33,14 @@ resource "helm_release" "argocd_chart" {
   chart      = var.argocd_chart.chart
   version    = var.argocd_chart.version
 
-  # values = [
-  #   yamlencode({
-  #     args = ["--kubelet-insecure-tls"]
-  # })
-  # ]
+  values = [
+    <<-EOT
+    controller:
+      webhook:
+        url: "https://argocd.example.com/api/webhook"
+        secret: "argocd-webhook-secret"
+    EOT    
+  ]
 }
 
 resource "helm_release" "alb_chart" {
