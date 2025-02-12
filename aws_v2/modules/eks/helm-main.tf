@@ -82,10 +82,6 @@ resource "helm_release" "prometheus_chart" {
   repository = var.prometheus_chart.repository
   chart = var.prometheus_chart.chart
   version = var.prometheus_chart.version
-
-  values = [
-    enableServiceMutatorWebhook: true
-  ]
 }
 
 resource "helm_release" "grafana_chart" {
