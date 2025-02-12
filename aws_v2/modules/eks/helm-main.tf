@@ -20,6 +20,10 @@ resource "helm_release" "metrics_server_chart" {
   repository = var.metrics_server_chart.repository
   chart      = var.metrics_server_chart.chart
   version    = var.metrics_server_chart.version
+
+  values = [
+    enableServiceMutatorWebhook: true
+  ]
 }
 
 resource "helm_release" "argocd_chart" {
@@ -34,8 +38,6 @@ resource "helm_release" "argocd_chart" {
   #     args = ["--kubelet-insecure-tls"]
   # })
   # ]
-
-  create_namespace = true
 }
 
 resource "helm_release" "alb_chart" {
@@ -48,6 +50,7 @@ resource "helm_release" "alb_chart" {
   values = [
     <<-EOT
     clusterName: ${data.aws_eks_cluster.default.name}
+    enableServiceMutatorWebhook: true
     EOT
   ]
 }
@@ -74,6 +77,10 @@ resource "helm_release" "prometheus_chart" {
   repository = var.prometheus_chart.repository
   chart = var.prometheus_chart.chart
   version = var.prometheus_chart.version
+
+  values = [
+    enableServiceMutatorWebhook: true
+  ]
 }
 
 resource "helm_release" "grafana_chart" {
