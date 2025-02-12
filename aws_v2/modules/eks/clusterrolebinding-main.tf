@@ -63,19 +63,13 @@ resource "kubernetes_cluster_role_binding" "prometheus_clusterrolebinding" {
 
   subject {
     kind      = "ServiceAccount"
-    name      = "grafana-sa"
-    namespace = "monitoring"
-  }
-
-  subject {
-    kind      = "ServiceAccount"
     name      = "prometheus-sa"
     namespace = "monitoring"
   }
 
   role_ref {
     kind     = "ClusterRole"
-    name     = "grafana-prometheus-clusterrole"
+    name     = "prometheus-grafana-clusterrole"
     api_group = "rbac.authorization.k8s.io"
   }
 }
@@ -94,7 +88,7 @@ resource "kubernetes_cluster_role_binding" "grafana_clusterrolebinding" {
 
   role_ref {
     kind     = "ClusterRole"
-    name     = "grafana-prometheus-clusterrole"
+    name     = "prometheus-grafana-clusterrole"
     api_group = "rbac.authorization.k8s.io"
   }
 }
