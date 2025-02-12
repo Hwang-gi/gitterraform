@@ -128,9 +128,9 @@ resource "kubernetes_cluster_role" "efs_csi_driver_clusterrole" {
 }
 
 # prometheus Clusterrole
-resource "kubernetes_cluster_role" "prometheus" {
+resource "kubernetes_cluster_role" "prometheus_grafana_clusterrole" {
   metadata {
-    name = "prometheus-clusterrole"
+    name = "prometheus-grafana-clusterrole"
   }
 
   rule {
@@ -154,36 +154,6 @@ resource "kubernetes_cluster_role" "prometheus" {
   rule {
     api_groups = ["batch"]
     resources  = ["jobs", "cronjobs"]
-    verbs      = ["get", "list", "watch"]
-  }
-
-  rule {
-    api_groups = ["networking.k8s.io"]
-    resources  = ["ingresses"]
-    verbs      = ["get", "list", "watch"]
-  }
-}
-
-resource "kubernetes_cluster_role" "grafana" {
-  metadata {
-    name = "grafana-clusterrole"
-  }
-
-  rule {
-    api_groups = [""]
-    resources  = ["pods", "services", "endpoints"]
-    verbs      = ["get", "list", "watch"]
-  }
-
-  rule {
-    api_groups = ["extensions"]
-    resources  = ["deployments", "replicasets", "daemonsets"]
-    verbs      = ["get", "list", "watch"]
-  }
-
-  rule {
-    api_groups = ["apps"]
-    resources  = ["deployments", "statefulsets", "replicasets"]
     verbs      = ["get", "list", "watch"]
   }
 
