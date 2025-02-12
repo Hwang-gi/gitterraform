@@ -22,7 +22,9 @@ resource "helm_release" "metrics_server_chart" {
   version    = var.metrics_server_chart.version
 
   values = [
+    <<-EOT
     enableServiceMutatorWebhook: true
+    EOT
   ]
 }
 
