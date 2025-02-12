@@ -30,25 +30,3 @@ resource "kubernetes_service_account" "efs_csi_driver_sa" {
     }
   }
 }
-
-# Prometheus ServiceAccount
-resource "kubernetes_service_account" "prometheus_sa" {
-  metadata {
-    name      = "prometheus-sa"
-    namespace = "monitoring"
-    annotations = {
-      "kubernetes.io/enforce-mountable-secrets" = "true"
-    }
-  }
-}
-
-# Grafana ServiceAccount
-resource "kubernetes_service_account" "grafana_sa" {
-  metadata {
-    name      = "grafana-sa"
-    namespace = "monitoring"
-    annotations = {
-      "kubernetes.io/enforce-mountable-secrets" = "true"
-    }
-  }
-}
