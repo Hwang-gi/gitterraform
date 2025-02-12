@@ -28,23 +28,6 @@ resource "helm_release" "metrics_server_chart" {
   ]
 }
 
-resource "helm_release" "argocd_chart" {
-  name       = var.argocd_chart.name
-  namespace  = var.argocd_chart.namespace
-  repository = var.argocd_chart.repository
-  chart      = var.argocd_chart.chart
-  version    = var.argocd_chart.version
-
-  values = [
-    <<-EOT
-    controller:
-      webhook:
-        url: "https://argocd.example.com/api/webhook"
-        secret: "argocd-webhook-secret"
-    EOT    
-  ]
-}
-
 resource "helm_release" "alb_chart" {
   name       = var.alb_chart.name
   namespace  = var.alb_chart.namespace
@@ -74,20 +57,4 @@ resource "helm_release" "efs_csi_driver_chart" {
   repository = var.efs_csi_driver_chart.repository
   chart = var.efs_csi_driver_chart.chart
   version = var.efs_csi_driver_chart.version
-}
-
-resource "helm_release" "prometheus_chart" {
-  name = var.prometheus_chart.name
-  namespace = var.prometheus_chart.namespace
-  repository = var.prometheus_chart.repository
-  chart = var.prometheus_chart.chart
-  version = var.prometheus_chart.version
-}
-
-resource "helm_release" "grafana_chart" {
-  name = var.grafana_chart.name
-  namespace = var.grafana_chart.namespace
-  repository = var.grafana_chart.repository
-  chart = var.grafana_chart.chart
-  version = var.grafana_chart.version
 }
