@@ -4,7 +4,7 @@ module "vpc" {
   vpc_prefix              = "stg"
   vpc_cidr                = "10.0.0.0/16"
   default_vpc_cidr        = "10.1.0.0/16"
-  cluster_name            = "STG-Cluster"
+  cluster_name            = "latest-Cluster"
   az                      = ["ap-northeast-2a", "ap-northeast-2c"]
 }
 
